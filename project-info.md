@@ -1,202 +1,174 @@
 # Project Info — QA AI Capability Exercise
 
-**Primary AI Tool(s) Used:** Cursor (Agent / Composer)
+**Primary AI Tool(s) Used:** Cursor (AI-assisted workflow)
 
-**Application Under Test:** Practice Software Testing Toolshop – Checkout & Application Flow  
-**UI:** https://practicesoftwaretesting.com/  
-**API:** https://api.practicesoftwaretesting.com/api/documentation  
+**Application Under Test:** Practice Software Testing Toolshop — Checkout & Application Flow
 
-**Assessment Start Date:** 2026-08-06 / **Submission Date:** *(TBD)*
+- **UI:** https://practicesoftwaretesting.com/
+- **API documentation:** https://api.practicesoftwaretesting.com/api/documentation
+
+**Assessment Start Date:** / **Submission Date:** /
 
 ---
 
 ## Project Summary
 
-This submission exercises AI-assisted QA on the Toolshop ecommerce application: **user registration and login with profile verification (UI-AC1 / API-AC1)**, and **browse-to-cart checkout with Cash on Delivery, double Confirm for invoice generation, and invoice visibility under My Invoices (UI-AC2 / API-AC2)**. Manual, UI (Playwright), and API (Playwright) tiers are scoped to **5–8 cases each**, tagged **Smoke** (sanity) or **Regression**, with traceability to the assessment acceptance criteria.
+This assessment targets the Toolshop ecommerce application: user authentication and profile (UI and API), product browse and cart behaviour, Cash on Delivery checkout, and invoice visibility under My Invoices. API coverage follows register → login → bearer token → cart → products → invoice using the assessment’s sample invoice payload. UI checkout must press **Confirm twice** to complete invoice generation.
 
 ---
 
 ## Tools Used
 
-| Category | Tools |
-|----------|--------|
-| AI | Cursor (context via `.cursor/context/project_context.md`, rules, skills, iterative `ai-prompts/`) |
-| UI automation | Playwright (JavaScript) — Prism-style structure under `PrismStructure/` *(Steps 5–8)* |
-| API automation | Playwright API testing — same framework *(Steps 6–8)* |
-| Manual suite | `FunctionalTestCase.csv` *(Step 3)* |
-| Browser | Google Chrome (latest) — per assessment assumptions |
-| Environment | Public demo Toolshop (production demo); payment method **cash-on-delivery** |
+| Category | Tool |
+|----------|------|
+| AI | Cursor |
+| UI / API automation (planned) | Playwright (Prism-style structure under `PrismStructure/`) |
+| Browser | Google Chrome (latest) |
+| Manual suite (planned) | `FunctionalTestCase.csv` |
+| Version control | Git (iterative commits to public repository) |
 
 ---
 
 ## Requirement and Risk Analysis
 
-### Scope (from Assessment.md)
+### Scope (from Assessment.md Part B)
 
-| Layer | In scope | Out of scope (unless needed for a negative on core flow) |
-|-------|----------|----------------------------------------------------------|
-| UI | Register, login, profile, catalog, cart, quantity, COD checkout, invoice (Confirm ×2), My Invoices | Stretch modules not required for Core (e.g. admin, rentals) |
-| API | Register, login, bearer token, cart lifecycle, products, cart validation, invoice POST per documented flow | APIs unrelated to AC1/AC2 |
+| Layer | In scope |
+|-------|----------|
+| UI | Small ecommerce flows on practicesoftwaretesting.com; flows categorized as **sanity/smoke** or **regression** |
+| API | Lifecycle flows documented at api.practicesoftwaretesting.com; component/flow testing per AC |
+| Suite size | 5–8 test cases each for **manual**, **UI automation**, and **API automation**, including smoke and regression |
+| Evidence | Execution reports; automated cases expected **Passed** when suites are complete |
 
-### UI-AC1 — User Registration & Login
+### UI — AC1: User Registration & Login
 
-**Requirements**
+**Requirements (testable):**
 
-- Register with valid details on the UI.
+- Register with valid details.
 - Log in with registered credentials.
-- Verify profile information reflects registered data.
+- Verify profile information after login.
 
-**Top risks**
+| Risk ID | Risk | Impact | Mitigation in test design |
+|---------|------|--------|---------------------------|
+| R-UI-1 | Registration rejects duplicate email or weak password | Blocks AC1 | Use unique emails; valid password per SUT rules in manual/API cases |
+| R-UI-2 | Profile data does not match registration input | False pass on AC1 | Assert key profile fields after login (regression) |
+| R-UI-3 | Session/auth state unclear after login | Flaky login tests | Smoke: valid login only; regression: invalid credentials |
 
-| # | Risk | Mitigation in test design |
-|---|------|---------------------------|
-| 1 | Registration validation (required fields, password rules, duplicate email) blocks happy path | Smoke: valid register path in Regression; negative login/register in Regression |
-| 2 | Profile data mismatch after login (stale session or wrong user) | Assert profile fields against registration test data |
-| 3 | Invalid credentials accepted or unclear error messaging | Regression: negative login case |
-
-**Smoke vs Regression**
+**Smoke vs regression:**
 
 | Objective | Tag |
 |-----------|-----|
-| Valid login with known/good user | Smoke |
-| Register → login → profile verification | Regression |
-| Invalid login | Regression |
+| Valid login with known or newly registered user | Smoke |
+| Full register → login → profile verification | Regression |
+| Invalid login / credential error handling | Regression |
 
----
+### UI — AC2: End-to-End Purchase Flow
 
-### UI-AC2 — End-to-End Purchase Flow
-
-**Requirements**
+**Requirements (testable):**
 
 - Browse products; add multiple items to cart; update quantity.
-- Checkout using **Cash on Delivery**.
-- Press **Confirm twice** to generate invoice (assessment rule).
+- Checkout with **Cash on Delivery**.
+- Complete invoice generation (**Confirm pressed twice** per assessment).
 - View generated invoice under **My Invoices**.
 
-**Top risks**
+| Risk ID | Risk | Impact | Mitigation in test design |
+|---------|------|--------|---------------------------|
+| R-UI-4 | Single Confirm does not finalize invoice | High — core AC failure | Explicit steps and automation for **Confirm twice** |
+| R-UI-5 | Cart quantity or multi-item totals wrong | Wrong order/invoice | Regression case for quantity update and multiple lines |
+| R-UI-6 | Invoice not listed under My Invoices | E2E broken | Assert invoice list after successful checkout |
 
-| # | Risk | Mitigation in test design |
-|---|------|---------------------------|
-| 1 | **Single Confirm** — invoice not created; testers assume defect | Explicit steps and automation for **second Confirm**; Regression E2E manual + UI case |
-| 2 | Cart empty or wrong quantity at checkout | Smoke add-to-cart; Regression quantity update |
-| 3 | Invoice not visible in My Invoices after successful payment UI | E2E assertion on My Invoices list/detail |
-
-**Smoke vs Regression**
+**Smoke vs regression:**
 
 | Objective | Tag |
 |-----------|-----|
-| Catalog/browse loads; add to cart | Smoke |
-| Full COD checkout, Confirm ×2, My Invoices | Regression |
-| Search / product detail / filters (within case cap) | Regression |
+| Catalog/browse, add to cart | Smoke |
+| COD checkout with Confirm ×2 and My Invoices | Regression (E2E) |
+| Search, filters, product details (within case cap) | Regression |
 
----
+### API — AC1: User Authentication & Cart Creation
 
-### API-AC1 — User Authentication & Cart Creation
-
-**Requirements**
+**Requirements (testable):**
 
 - Register via API.
-- Login with registered credentials.
+- Log in with registered credentials.
 - Obtain valid bearer token.
 - Create a new cart successfully.
 
-**Top risks**
+| Risk ID | Risk | Impact | Mitigation in test design |
+|---------|------|--------|---------------------------|
+| R-API-1 | Invalid register payload → 4xx | Blocks token/cart | Smoke: happy path; regression: validation errors where in scope |
+| R-API-2 | Token missing or expired on cart create | 401 on cart | Chain login → token → cart in order; no hardcoded tokens |
+| R-API-3 | Duplicate user on parallel runs | 409 / flaky setup | Unique registration data per run |
 
-| # | Risk | Mitigation in test design |
-|---|------|---------------------------|
-| 1 | Weak or invalid password → **422** on register | Use strong password in builders; optional negative API case within cap |
-| 2 | Missing or expired bearer token on cart create → **401/403** | Smoke: login + token + create cart; chain assertions |
-| 3 | Duplicate email on parallel runs → **409** | Unique email per run (dynamic test data — Step 4) |
-
-**Smoke vs Regression**
+**Smoke vs regression:**
 
 | Objective | Tag |
 |-----------|-----|
-| Register + login + token + create cart | Smoke |
-| Token/cart error handling | Regression |
+| Register, login, token, create cart | Smoke |
+| Auth/cart error handling | Regression |
 
----
+### API — AC2: Product Selection & Invoice Generation
 
-### API-AC2 — Product Selection & Invoice Generation
+**Requirements (testable):**
 
-**Requirements**
-
-- Retrieve products with bearer token.
+- Retrieve products (authorized).
 - Add selected products to cart.
 - Verify cart contents.
-- Generate invoice with required customer/order details (assessment example: `payment_method`: `cash-on-delivery`, dynamic `cart_id`, billing fields including `billing_country` **TG** and `billing_postal_code` **1234AA**).
+- Generate invoice with required customer/order details (assessment example: `payment_method` **cash-on-delivery**, billing fields including `billing_country` **TG**, `billing_postal_code` **1234AA**, dynamic `cart_id`).
 
-**Top risks**
+| Risk ID | Risk | Impact | Mitigation in test design |
+|---------|------|--------|---------------------------|
+| R-API-4 | Wrong `cart_id` or stale cart | Invoice 4xx | Create cart in same flow; inject `cart_id` from response |
+| R-API-5 | Billing country/postal mismatch | Invoice rejected | Use assessment sample for positive path; optional negative in regression |
+| R-API-6 | Cart contents do not match added products | Wrong invoice | GET cart assertions before POST invoice |
 
-| # | Risk | Mitigation in test design |
-|---|------|---------------------------|
-| 1 | Invalid `cart_id` or wrong add-to-cart contract → **404/422** | Use cart from create-cart step; validate cart GET before invoice |
-| 2 | Billing country/postal mismatch vs API rules → **422** | Positive path uses assessment sample; Regression negative invalid billing |
-| 3 | Invoice created but cart state inconsistent | Assert cart contents before POST `/invoices` |
-
-**Smoke vs Regression**
+**Smoke vs regression:**
 
 | Objective | Tag |
 |-----------|-----|
-| GET products; add item; GET cart | Smoke / Regression (split by case cap) |
-| POST invoice valid payload | Regression |
-| Invalid billing (negative) | Regression |
+| Products + add to cart + cart validation | Smoke / regression (split per suite design) |
+| POST invoice with assessment-aligned COD payload | Regression |
+| Invalid invoice payload (if within case cap) | Regression |
+
+### Cross-cutting risks
+
+| Risk ID | Risk | Mitigation |
+|---------|------|------------|
+| R-X-1 | Shared demo environment instability | Retries and unique data where supported; evidence in execution reports |
+| R-X-2 | Over-scoping beyond 5–8 cases per tier | Traceability to ACs only; smoke + regression within cap |
+| R-X-3 | Prompt history out of sync with repo | Log prompts per step in `ai-prompts/` after each iteration |
+
+### Traceability overview (requirements → planned tiers)
+
+| Acceptance criteria | Manual (`FunctionalTestCase.csv`) | UI automation | API automation |
+|---------------------|-----------------------------------|---------------|----------------|
+| UI-AC1 | Step 3 | Step 7 | — |
+| UI-AC2 | Step 3 | Step 7 | — |
+| API-AC1 | Step 3 | — | Step 6 |
+| API-AC2 | Step 3 | — | Step 6 |
 
 ---
 
-### Cross-cutting test types (manual + automation)
+## Setup Summary (AI workflow — Part A)
 
-| Type | Application to Toolshop |
-|------|-------------------------|
-| Positive | Happy paths for AC1/AC2 UI and API |
-| Negative | Invalid login; invalid API billing where case budget allows |
-| Edge | Confirm-only-once behaviour (UI); duplicate register email |
-| Smoke | Minimum path to trust build: login, catalog, cart, API auth + cart |
-| Regression | E2E purchase, profile, invoice validation, API invoice lifecycle |
+*Sections 3–10 will be expanded as manual, automation, and documentation steps complete.*
 
-### Traceability (requirements → planned coverage)
+1. **Project and SUT context** — `.cursor/context/project_context.md` holds URLs, ACs, Confirm-twice rule, naming conventions, and assessment folder layout; referenced in Cursor via `@project_context.md` and rules/skills under `.cursor/`.
 
-| AC | Manual (Step 3) | UI auto (Step 7) | API auto (Step 6) |
-|----|-----------------|------------------|-------------------|
-| UI-AC1 | TC-M-002, TC-M-004, TC-M-006 | Login, register/profile, negative login | — |
-| UI-AC2 | TC-M-001, TC-M-003, TC-M-005 | Catalog, cart, checkout Confirm ×2 | — |
-| API-AC1 | TC-M-007 | — | Auth + cart smoke |
-| API-AC2 | TC-M-008 | — | Products, cart, invoice |
+2. **Requirement analysis** — Iterative prompts against `Assessment.md` and context file; output captured in this **Requirement and Risk Analysis** section and in `ai-prompts/requirements-and-planning.md` (Entry 3).
 
-*Case IDs finalized when `FunctionalTestCase.csv` is generated in Step 3.*
+3. **Test planning and strategy (UI vs API, smoke vs regression)** — *(Step 3+)*
 
----
+4. **Manual test case design** — *(Step 3)*
 
-## Setup Summary (Part A — completed sections noted)
+5. **Automation design (Playwright / PrismStructure)** — *(Steps 5–7)*
 
-1. **Project and SUT context to the tool:** Single source `.cursor/context/project_context.md` (SUT URLs, ACs, Confirm ×2, naming, folder structure); `@Assessment.md` for submission rules; `.cursor/rules` and `.cursor/skills` for constraints. Short focused prompts; no repeating full SUT in every chat.
+6. **Validate and refine AI-generated cases and scripts** — *(Ongoing; self-review skill and manual-rules)*
 
-2. **AI for requirement analysis:** Iterative prompts recorded in `ai-prompts/requirements-and-planning.md` (Step 1 scope, Step 2 risk analysis). AI drafts AC breakdown and risks; human validates against Assessment.md only.
+7. **Test data generation and API payloads** — *(Step 4+; assessment invoice body as positive baseline)*
 
-3. **AI for test planning and strategy (UI vs API, smoke vs regression):** Matrix above; balanced UI + API within 5–8 cases per tier. UI for user-visible behaviour (Confirm ×2); API for lifecycle and invoice payload. *(Detailed strategy in Step 3–7.)*
+8. **Debugging failing tests** — *(Steps 6–8)*
 
-4. **AI for manual test case design:** *(Step 3 — pending)* via `.cursor/ai-prompts/MANUAL_PROMPT.md`.
+9. **Information not shared with AI** — Production credentials, internal URLs, API keys, or customer PII beyond public demo app needs.
 
-5. **AI for automation design:** *(Step 5–7 — pending)* Playwright Prism structure under `PrismStructure/`.
-
-6. **Validate and refine AI-generated cases/scripts:** Self-review skill + manual-rules; execution evidence in later steps.
-
-7. **AI for test data generation:** *(Step 4 — pending)* unique emails, dynamic `cart_id`, assessment invoice body.
-
-8. **AI for debugging:** *(Step 8 — pending)* `ai-prompts/automation-and-debugging.md`.
-
-9. **Information avoided with AI:** Production secrets, personal credentials, internal URLs, unrelated customer data.
-
-10. **Reuse in a real project:** Reuse context + rules + skills + phased `ai-prompts/`; one task per prompt; tag Smoke/Regression; keep traceability AC → TC.
-
----
-
-## Coverage snapshot (target)
-
-| Tier | Count | Smoke / Regression |
-|------|-------|--------------------|
-| Manual | 8 | Both |
-| UI automation | 7–8 | Both |
-| API automation | 7–8 | Both |
-
-Positive, negative, and edge cases included within the case cap per assessment.
+10. **Reuse in a real project** — Reuse context + rules + skills + phased `ai-prompts/` history; one task per prompt; commit per lifecycle phase.

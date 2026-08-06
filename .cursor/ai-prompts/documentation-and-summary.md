@@ -23,9 +23,25 @@
 
 ---
 
+## Entry 2 — project-info requirement analysis (Step 2)
+
+- **Prompt:**  
+  Same as `requirements-and-planning.md` Entry 3 — produce `project-info.md` requirement and risk section per Assessment template.
+
+- **AI Response Summary:**  
+  Added `project-info.md` with Project Summary, Tools Used, full Requirement and Risk Analysis, and partial Setup Summary (context + requirement analysis).
+
+- **Edits You Made:**  
+  Left assessment dates blank for author fill-in; noted Playwright/Prism as planned per Assessment tool expectations.
+
+- **Reason for Edits:**  
+  Step 2 deliverable only; README and remaining Part A bullets deferred.
+
+---
+
 ## Planned (Step 4, 9)
 
-- `project-info.md` — Part A AI workflow answers  
+- Expand `project-info.md` Setup Summary items 3–10  
 - `readme.md` — install, Smoke/Regression commands, report paths  
 - Execution evidence pointers after test runs
 

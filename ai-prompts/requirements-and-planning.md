@@ -63,18 +63,16 @@ qa-ai-practical-assessment/   (this repo: QA_Assessment_ADITI_SINGH)
 
 ---
 
-## Planned — Hybrid automation strategy (Step 5+)
+## Entry 4 — Hybrid automation scaffold (Step 5)
 
-*Not executed yet; record prompt and outcome when `PrismStructure/` is scaffolded.*
-
-- **Prompt (draft):**  
-  Design Playwright JS hybrid plan (POM + API clients + fixtures). Prefer API for data setup; UI for user-visible behaviour. Align with Assessment `PrismStructure` and tags `@smoke` / `@regression`.
+- **Prompt:**  
+  Design Playwright JS hybrid plan (POM + API clients + fixtures). Prefer API for data setup; UI for user-visible behaviour. Align folder structure with assessment `PrismStructure`. Implement scaffold only.
 
 - **AI Response (short summary):**  
-  *(pending)*
+  Implemented `PrismStructure/` with `src/config`, `api`, `pages`, `fixtures`, `helpers`, `testdata`, `tests/ui`, `tests/api`, playwright config, reporters, npm scripts. Logged in `ai-prompts/automation-and-debugging.md` Entry 1.
 
 - **Validation Notes:**  
-  *(pending)*
+  Matches Assessment required folder. Functional suites Steps 6–7.
 
 ---
 

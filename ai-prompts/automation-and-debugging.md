@@ -6,19 +6,26 @@
 
 **Purpose of this file:** Record prompts for automation structure, assertions, and failure analysis.
 
-**Status:** No automation entries yet. Scaffold, API/UI specs, and debugging notes will be added in Steps 5–8.
+---
+
+## Entry 1 — Scaffold hybrid framework (Step 5)
+
+- **Prompt:**  
+  Create `PrismStructure` Playwright JS hybrid scaffold for Toolshop: dotenv config, API clients (auth, products, cart, invoices), POM base page, fixtures, test data builders aligned to Assessment invoice sample, `playwright.config.js` with UI/API projects, `testIdAttribute: data-test`, HTML report to `reports/html`, npm smoke/regression scripts. No full UI/API suites yet (Steps 6–7).
+
+- **AI Response Summary:**  
+  Added `PrismStructure/` with layered `src/` and `tests/ui`, `tests/api`, plus `tests/scaffold.spec.js` with `@smoke` config check. API base URL verified live (`GET /products`). Register path `POST /users/register`.
+
+- **Debugging Outcome:**  
+  Scaffold smoke validates env URLs only; functional API/UI specs deferred. `.env` gitignored; `.env.example` documents base URLs.
 
 ---
 
-## Planned structure (from Assessment — not implemented)
+## Planned (Steps 6–8)
 
-```text
-PrismStructure/
-├── playwright.config.js
-├── tests/          # UI and API specs with @smoke / @regression
-├── reports/        # execution reports
-└── (support layers per Prism / hybrid design)
-```
+- API smoke/regression specs (`tests/api`)  
+- UI smoke/regression specs (`tests/ui`) including Confirm twice  
+- Failure analysis entries after test runs
 
 ---
 

@@ -44,7 +44,7 @@
   Manual: `FunctionalTestCase.csv` Test Data column. Automation (Step 5+): planned `PrismStructure` testdata (builders/JSON) and `.env.example` for base URLs; gitignore `.env` if used. No new folders beyond Assessment layout in Step 4.
 
 - **Validation Notes:**  
-  Implementation deferred to Step 5 scaffold; strategy only in this step.
+  Implementation in `PrismStructure/src/testdata/` (Step 5). Strategy doc unchanged.
 
 ---
 
@@ -58,6 +58,19 @@
 
 - **Validation Notes:**  
   Avoids inventing extra modules; ties to committed CSV IDs only.
+
+---
+
+## Entry 5 — Test data files in PrismStructure (Step 5)
+
+- **Prompt:**  
+  Add `data.builders.js` and `checkout.data.json` under PrismStructure per Step 4 strategy.
+
+- **AI Response Summary:**  
+  Builders generate unique registration emails; invoice builder injects dynamic `cart_id` with Assessment default billing fields.
+
+- **Validation Notes:**  
+  Matches `project-info.md` Test Data Strategy; no secrets in JSON.
 
 ---
 

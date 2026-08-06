@@ -161,7 +161,7 @@ This assessment targets the Toolshop ecommerce application: user authentication 
 
 4. **Manual test case design** — `FunctionalTestCase.csv` (8 cases, TC-M-001–TC-M-008); iterative prompts in `ai-prompts/test-design.md` (Step 3).
 
-5. **Automation design (Playwright / PrismStructure)** — *(Steps 5–7)*
+5. **Automation design (Playwright / PrismStructure)** — `PrismStructure/` hybrid layout (Step 5): `src/config`, `src/api` clients, `src/pages` (POM base), `src/fixtures`, `src/helpers`, `src/testdata` (builders + `checkout.data.json`), `tests/ui`, `tests/api`, `playwright.config.js` with `data-test` attribute, HTML/JSON reporters under `reports/`. npm scripts: `test`, `test:smoke`, `test:regression`, `test:ui`, `test:api`, `report`. UI/API specs added Steps 6–7.
 
 6. **Validate and refine AI-generated cases and scripts** — After each AI output: map to UI-AC1/AC2 and API-AC1/AC2; apply `.cursor/skills/self-review.md` and `manual-rules.md` Rule 17 (manual Step 3c **pass**). For automation (later): run suites locally, compare failures to Assessment rules (Confirm twice, dynamic `cart_id`), adjust locators/data—not blind acceptance. Prompt changes recorded in `ai-prompts/test-design.md` / `automation-and-debugging.md` with validation notes.
 

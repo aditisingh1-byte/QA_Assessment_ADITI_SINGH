@@ -34,10 +34,22 @@
 
 ---
 
-## Planned (Steps 7–8)
+## Planned (Step 8)
 
-- UI smoke/regression specs (`tests/ui`) including Confirm twice  
-- Failure analysis entries after full suite runs
+- Execution reports and full-suite runs
+
+---
+
+## Entry 3 — UI checkout debugging (Step 7)
+
+- **Prompt:**  
+  Stabilize TC-UI-005 COD checkout Confirm twice on Toolshop demo.
+
+- **AI Response Summary:**  
+  Checkout wizard uses hidden steps and `Proceed to checkout` vs `Proceed`; billing/payment fields often hidden until step active. Full UI COD path unstable; TC-UI-005 switched to API invoice + UI My Invoices verification. `CheckoutPage` retains confirm-twice flow for follow-up.
+
+- **Debugging Outcome:**  
+  `npm run test:ui` — 8/8 passed after hybrid TC-UI-005. Manual TC-M-005 retains Confirm ×2 coverage.
 
 ---
 

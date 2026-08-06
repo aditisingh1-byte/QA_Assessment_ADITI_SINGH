@@ -142,8 +142,8 @@ This assessment targets the Toolshop ecommerce application: user authentication 
 
 | Acceptance criteria | Manual (`FunctionalTestCase.csv`) | UI automation | API automation |
 |---------------------|-----------------------------------|---------------|----------------|
-| UI-AC1 | Step 3 (TC-M-002, TC-M-004, TC-M-006) | Step 7 | — |
-| UI-AC2 | Step 3 (TC-M-001, TC-M-003, TC-M-005) | Step 7 | — |
+| UI-AC1 | Step 3 (TC-M-002, TC-M-004, TC-M-006) | Step 7 (TC-UI-002, TC-UI-004, TC-UI-006) | — |
+| UI-AC2 | Step 3 (TC-M-001, TC-M-003, TC-M-005) | Step 7 (TC-UI-001, TC-UI-003, TC-UI-005–008) | — |
 | API-AC1 | Step 3 (TC-M-007) | — | Step 6 (TC-API-001–003) |
 | API-AC2 | Step 3 (TC-M-008) | — | Step 6 (TC-API-004–008) |
 
@@ -161,7 +161,7 @@ This assessment targets the Toolshop ecommerce application: user authentication 
 
 4. **Manual test case design** — `FunctionalTestCase.csv` (8 cases, TC-M-001–TC-M-008); iterative prompts in `ai-prompts/test-design.md` (Step 3).
 
-5. **Automation design (Playwright / PrismStructure)** — `PrismStructure/` hybrid layout (Step 5): `src/config`, `src/api` clients, `src/pages` (POM base), `src/fixtures`, `src/helpers`, `src/testdata` (builders + `checkout.data.json`), `tests/ui`, `tests/api`, `playwright.config.js` with `data-test` attribute, HTML/JSON reporters under `reports/`. npm scripts: `test`, `test:smoke`, `test:regression`, `test:ui`, `test:api`, `report`. UI/API specs added Steps 6–7.
+5. **Automation design (Playwright / PrismStructure)** — `PrismStructure/` hybrid layout (Step 5–7): POM pages (`HomePage`, `LoginPage`, `RegisterPage`, `ProductPage`, `CartPage`, `CheckoutPage`, `AccountPage`), UI specs `tests/ui/auth-checkout.spec.js` (8 cases TC-UI-001–008), API specs `tests/api/auth-cart-invoice.spec.js` (8 cases). System Chrome via `channel: 'chrome'`. Demo credentials in `.env.example` only.
 
 6. **Validate and refine AI-generated cases and scripts** — After each AI output: map to UI-AC1/AC2 and API-AC1/AC2; apply `.cursor/skills/self-review.md` and `manual-rules.md` Rule 17 (manual Step 3c **pass**). For automation (later): run suites locally, compare failures to Assessment rules (Confirm twice, dynamic `cart_id`), adjust locators/data—not blind acceptance. Prompt changes recorded in `ai-prompts/test-design.md` / `automation-and-debugging.md` with validation notes.
 

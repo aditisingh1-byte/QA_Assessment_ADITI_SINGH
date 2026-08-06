@@ -4,6 +4,8 @@ require('dotenv').config({ path: path.join(__dirname, '../../.env') });
 const env = {
   uiBaseUrl: process.env.UI_BASE_URL || 'https://practicesoftwaretesting.com',
   apiBaseUrl: process.env.API_BASE_URL || 'https://api.practicesoftwaretesting.com',
+  demoUserEmail: process.env.DEMO_USER_EMAIL || '',
+  demoUserPassword: process.env.DEMO_USER_PASSWORD || '',
 };
 
 module.exports = { env };

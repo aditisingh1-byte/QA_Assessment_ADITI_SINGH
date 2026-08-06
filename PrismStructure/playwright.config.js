@@ -23,6 +23,8 @@ module.exports = defineConfig({
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
     testIdAttribute: 'data-test',
+    actionTimeout: 45_000,
+    navigationTimeout: 60_000,
   },
   projects: [
     {
@@ -35,8 +37,11 @@ module.exports = defineConfig({
     {
       name: 'ui',
       testMatch: /tests\/ui\/.*\.spec\.js/,
+      fullyParallel: false,
+      retries: 2,
       use: {
         ...devices['Desktop Chrome'],
+        channel: 'chrome',
         baseURL: uiBaseURL,
       },
     },

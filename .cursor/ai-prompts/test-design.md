@@ -72,12 +72,6 @@
 
 ---
 
-## Planned — UI automation case titles (Step 7)
-
-*Add entries when Playwright UI suite is implemented.*
-
----
-
 ## Entry 5 — API automation suite (Step 6)
 
 - **Prompt:**  
@@ -97,6 +91,30 @@
 |-------------|-----------------|
 | API-AC1 | TC-API-001, TC-API-002, TC-API-003 |
 | API-AC2 | TC-API-004, TC-API-005, TC-API-006, TC-API-007, TC-API-008 |
+
+---
+
+## Entry 6 — UI automation suite (Step 7)
+
+- **Prompt:**  
+  Implement 8 Playwright UI tests (TC-UI-001–008) with POM and data-test locators. Cover catalog, login, cart, register/profile, invoice list, invalid login, search, quantity.
+
+- **AI Response Summary:**  
+  Added `src/pages/*` and `tests/ui/auth-checkout.spec.js`. TC-UI-005 uses hybrid API COD invoice + UI My Invoices after checkout wizard proved flaky on demo. `npm run test:ui` — 8 passed.
+
+- **Validation Notes:**  
+  Confirm twice on UI checkout covered by manual TC-M-005 and `CheckoutPage` helper for future runs. Chrome via `channel: 'chrome'`.
+
+---
+
+## UI automation traceability
+
+| Requirement | Automated tests |
+|-------------|-----------------|
+| UI-AC1 | TC-UI-002, TC-UI-004, TC-UI-006 |
+| UI-AC2 | TC-UI-001, TC-UI-003, TC-UI-005, TC-UI-007, TC-UI-008 |
+
+---
 
 ## Reusable test-design prompt (Rules + Skills)
 

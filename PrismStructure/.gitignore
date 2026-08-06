@@ -5,3 +5,4 @@ playwright-report/
 blob-report/
 reports/html/
 reports/test-results.json
+# Committed submission evidence: reports/execution-evidence/

@@ -55,10 +55,25 @@
 
 ---
 
+## Entry 4 — Execution evidence pointers (Step 8)
+
+- **Prompt:**  
+  Document where committed execution artifacts live and how to re-run suites before final README (Step 9).
+
+- **AI Response Summary:**  
+  Added `PrismStructure/reports/execution-evidence/EXECUTION_SUMMARY.md` with commands and pass status; expanded `project-info.md` Setup Summary item 8.
+
+- **Edits You Made:**  
+  *(none yet — Step 9 will add root `readme.md` run instructions.)*
+
+- **Reason for Edits:**  
+  Assessment requires execution reports with all automated cases Passed.
+
+---
+
 ## Planned (Step 9)
 
-- `readme.md` — install, Smoke/Regression commands, report paths  
-- Execution evidence pointers after test runs
+- `readme.md` — install, Smoke/Regression commands, report paths
 
 ---
 

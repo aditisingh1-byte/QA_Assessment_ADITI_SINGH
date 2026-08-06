@@ -167,7 +167,7 @@ This assessment targets the Toolshop ecommerce application: user authentication 
 
 7. **Test data generation and API payloads** — See **Test Data Strategy** below. Manual suite uses `{timestamp}` placeholders in CSV; automation will use builders/env under `PrismStructure/` (Step 5+). Positive API invoice uses Assessment sample fields (`billing_country` TG, `billing_postal_code` 1234AA, `payment_method` cash-on-delivery). AI used iteratively to draft strategy; human review against `Assessment.md` and `FunctionalTestCase.csv`.
 
-8. **Debugging failing tests** — *(Steps 6–8)*
+8. **Debugging failing tests** — API register 422 (`last_name` length) fixed in `data.builders.js` (Step 6). UI checkout wizard flakiness led to hybrid TC-UI-005 (API invoice + My Invoices); logged in `ai-prompts/automation-and-debugging.md`. **Execution evidence (Step 8):** full suite `npx playwright test` — 17/17 passed; committed under `PrismStructure/reports/execution-evidence/` (`EXECUTION_SUMMARY.md`, `test-results.json`, `full-suite-run.log`, HTML snapshot).
 
 9. **Information not shared with AI** — Production credentials, internal URLs, API keys, or customer PII beyond public demo app needs.
 

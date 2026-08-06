@@ -34,12 +34,6 @@
 
 ---
 
-## Planned (Step 8)
-
-- Execution reports and full-suite runs
-
----
-
 ## Entry 3 — UI checkout debugging (Step 7)
 
 - **Prompt:**  
@@ -50,6 +44,19 @@
 
 - **Debugging Outcome:**  
   `npm run test:ui` — 8/8 passed after hybrid TC-UI-005. Manual TC-M-005 retains Confirm ×2 coverage.
+
+---
+
+## Entry 4 — Full-suite execution and evidence (Step 8)
+
+- **Prompt:**  
+  Run full Playwright suite (API, UI, scaffold); capture HTML/JSON/console evidence for Assessment submission; commit tracked copy under `reports/execution-evidence/`.
+
+- **AI Response Summary:**  
+  Executed `npx playwright test --workers=1` — 17 passed (8 API, 8 UI, 1 scaffold). Copied `test-results.json`, console log, and HTML index into `PrismStructure/reports/execution-evidence/` with `EXECUTION_SUMMARY.md`. Live reports remain under `reports/html/` (gitignored).
+
+- **Debugging Outcome:**  
+  No failures on Step 8 run. Re-run from `PrismStructure/` after env or test changes; refresh execution-evidence folder for evaluators.
 
 ---
 

@@ -50,6 +50,19 @@ qa-ai-practical-assessment/   (this repo: QA_Assessment_ADITI_SINGH)
 
 ---
 
+## Entry 3 — Requirement and risk analysis (Step 2)
+
+- **Prompt:**  
+  Read `Assessment.md` and `.cursor/context/project_context.md` only. Write Requirement & Risk Analysis for Toolshop: UI-AC1, UI-AC2, API-AC1, API-AC2. For each: requirements bullets, top 3 risks, Smoke vs Regression tag. No test cases yet. Output markdown sections for `project-info.md`.
+
+- **AI Response (short summary):**  
+  Produced `project-info.md` with per-AC requirements, risk tables, Smoke/Regression objectives, cross-cutting positive/negative/edge/smoke/regression mapping, and AC → planned TC traceability. Documented assessment invoice rule (Confirm ×2) and API invoice sample fields (`TG`, `1234AA`, cash-on-delivery). Part A Setup Summary items 1–3 filled; items 4–8 marked pending for later steps.
+
+- **Validation Notes:**  
+  No features added beyond Assessment and project context. Traceability references planned TC-M IDs aligned to Step 3 checklist; updated when CSV lands.
+
+---
+
 ## Planned — Hybrid automation strategy (Step 5+)
 
 *Not executed yet; record prompt and outcome when `PrismStructure/` is scaffolded.*

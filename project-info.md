@@ -151,24 +151,81 @@ This assessment targets the Toolshop ecommerce application: user authentication 
 
 ## Setup Summary (AI workflow — Part A)
 
-*Sections 3–10 will be expanded as manual, automation, and documentation steps complete.*
+*Setup Summary items 5, 8, and 10 remain as stated above; items 3, 6, and 7 expanded in Step 4.*
 
 1. **Project and SUT context** — `.cursor/context/project_context.md` holds URLs, ACs, Confirm-twice rule, naming conventions, and assessment folder layout; referenced in Cursor via `@project_context.md` and rules/skills under `.cursor/`.
 
 2. **Requirement analysis** — Iterative prompts against `Assessment.md` and context file; output captured in this **Requirement and Risk Analysis** section and in `ai-prompts/requirements-and-planning.md` (Entry 3).
 
-3. **Test planning and strategy (UI vs API, smoke vs regression)** — *(Step 3+)*
+3. **Test planning and strategy (UI vs API, smoke vs regression)** — Three tiers: manual (`FunctionalTestCase.csv`), UI Playwright, API Playwright (Assessment cap 5–8 each). **Smoke** = catalog, login, add to cart, API auth/cart (TC-M-001–003, TC-M-007). **Regression** = register/profile, E2E COD + Confirm ×2, invalid login, API cart→invoice (TC-M-004–006, TC-M-008). UI owns user-visible flows; API owns token/cart/invoice lifecycle; hybrid optional within later automation. Tags: `@Smoke` / `@Regression` in automation titles; CSV **Smoke/Regression** column for manual. Logged in `ai-prompts/test-design.md`.
 
 4. **Manual test case design** — `FunctionalTestCase.csv` (8 cases, TC-M-001–TC-M-008); iterative prompts in `ai-prompts/test-design.md` (Step 3).
 
 5. **Automation design (Playwright / PrismStructure)** — *(Steps 5–7)*
 
-6. **Validate and refine AI-generated cases and scripts** — *(Ongoing; self-review skill and manual-rules)*
+6. **Validate and refine AI-generated cases and scripts** — After each AI output: map to UI-AC1/AC2 and API-AC1/AC2; apply `.cursor/skills/self-review.md` and `manual-rules.md` Rule 17 (manual Step 3c **pass**). For automation (later): run suites locally, compare failures to Assessment rules (Confirm twice, dynamic `cart_id`), adjust locators/data—not blind acceptance. Prompt changes recorded in `ai-prompts/test-design.md` / `automation-and-debugging.md` with validation notes.
 
-7. **Test data generation and API payloads** — *(Step 4+; assessment invoice body as positive baseline)*
+7. **Test data generation and API payloads** — See **Test Data Strategy** below. Manual suite uses `{timestamp}` placeholders in CSV; automation will use builders/env under `PrismStructure/` (Step 5+). Positive API invoice uses Assessment sample fields (`billing_country` TG, `billing_postal_code` 1234AA, `payment_method` cash-on-delivery). AI used iteratively to draft strategy; human review against `Assessment.md` and `FunctionalTestCase.csv`.
 
 8. **Debugging failing tests** — *(Steps 6–8)*
 
 9. **Information not shared with AI** — Production credentials, internal URLs, API keys, or customer PII beyond public demo app needs.
 
 10. **Reuse in a real project** — Reuse context + rules + skills + phased `ai-prompts/` history; one task per prompt; commit per lifecycle phase.
+
+---
+
+## Test Data Strategy
+
+### Principles (Assessment + `project_context.md`)
+
+| Principle | Application |
+|-----------|-------------|
+| Unique users | Registration email/username includes run-specific suffix (e.g. `manual.user.{timestamp}@example.com`, `api.user.{timestamp}@example.com`) to avoid duplicate-user failures on shared demo |
+| Strong password | Use a complex password meeting API/UI rules (e.g. `Pass$w0rd1`) in manual and automation data |
+| No hardcoded runtime IDs | Do not fix `cart_id`, product IDs, or bearer tokens in committed tests; obtain from API responses in the same test run |
+| Environment | Public demo UI and API URLs from Assessment; optional `.env` in `PrismStructure/` (Step 5+) for `UI_BASE_URL` and `API_BASE_URL` only—no secrets in repo |
+| Reuse | Shared billing/invoice defaults aligned to Assessment example; unique identity data per execution |
+
+### Data by test tier
+
+| Tier | Source | Notes |
+|------|--------|--------|
+| Manual | `FunctionalTestCase.csv` **Test Data** column | Placeholders `{timestamp}`; executor substitutes at run time |
+| UI automation (planned) | `PrismStructure/` builders + JSON fixtures (Step 5+) | Register/checkout fields per live UI mandatory fields |
+| API automation (planned) | Payload builders + Assessment invoice body | `cart_id` injected after `POST /carts`; token from `POST /users/login` |
+
+### Assessment invoice payload (positive API baseline)
+
+Used for API-AC2 / TC-M-008 and future `TC-API-*` invoice tests:
+
+```json
+{
+  "billing_street": "Zoey Shore",
+  "billing_city": "Hesselbury",
+  "billing_state": "Florida",
+  "billing_country": "TG",
+  "billing_postal_code": "1234AA",
+  "payment_method": "cash-on-delivery",
+  "cart_id": "<from create cart response>",
+  "payment_details": {}
+}
+```
+
+### Negative / edge data (within regression cap)
+
+| Purpose | Example | When |
+|---------|---------|------|
+| Invalid login | Unknown email + wrong password | TC-M-006; future UI regression |
+| Invalid invoice billing | Country/postal combo not accepted by API | Optional single API regression case if within 5–8 API automation cap |
+
+### AI-assisted test data workflow
+
+1. Prompt for registration and invoice field lists from `Assessment.md` only (Step 4a).  
+2. Prompt for uniqueness and “no hardcoded ID” rules (Step 4b).  
+3. Log prompts in `ai-prompts/test-data.md`; lock strategy in this section before implementing `PrismStructure` testdata (Step 5+).
+
+### Assumptions
+
+- Demo application is shared; parallel runs require unique emails.  
+- Exact UI mandatory register/checkout fields are validated during UI automation (Step 7), not invented beyond Assessment and manual case steps.

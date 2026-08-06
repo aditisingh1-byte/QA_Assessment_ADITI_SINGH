@@ -39,9 +39,24 @@
 
 ---
 
-## Planned (Step 4, 9)
+## Entry 3 — Test data strategy in project-info (Step 4)
 
-- Expand `project-info.md` Setup Summary items 3–10  
+- **Prompt:**  
+  Document test data strategy for Assessment deliverable: unique users, invoice payload from Assessment.md, manual CSV placeholders, planned PrismStructure data layout. Expand project-info Setup Summary items 3, 6, and 7.
+
+- **AI Response Summary:**  
+  Added **Test Data Strategy** section to `project-info.md`; filled test planning, validation/refinement, and test data bullets in Setup Summary; four entries in `ai-prompts/test-data.md`.
+
+- **Edits You Made:**  
+  Clarified Assessment invoice JSON with dynamic `cart_id`; no PrismStructure files created in Step 4.
+
+- **Reason for Edits:**  
+  Submission requires test data strategy before automation implementation; keeps git history aligned with iterative methodology.
+
+---
+
+## Planned (Step 9)
+
 - `readme.md` — install, Smoke/Regression commands, report paths  
 - Execution evidence pointers after test runs
 

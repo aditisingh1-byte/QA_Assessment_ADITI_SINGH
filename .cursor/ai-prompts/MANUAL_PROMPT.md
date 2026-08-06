@@ -80,7 +80,7 @@ Using the bearer token, the user should be able to retrieve products, add select
   "billing_country": "TG",
   "billing_postal_code": "1234AA",
   "payment_method": "cash-on-delivery",
-  "cart_id": "01kx0dctdxxg6sm4wtt1t0nf9r",
+  "cart_id": "<cart_id from API cart creation — use dynamic value in test data, not a hardcoded ID>",
   "payment_details": {}
 }
 ```
@@ -149,8 +149,8 @@ Use as a **coverage checklist**, not a blind copy. Stay within **5–8** total.
 | 4 | Regression | UI — register, login, verify profile | UI-AC1 |
 | 5 | Regression | UI — browse, quantity update, COD checkout, **Confirm twice**, My Invoices | UI-AC2 |
 | 6 | Regression | UI — negative login (invalid credentials) | UI-AC1 |
-| 7 | Smoke/Regression | API — register, login, bearer token, create cart | API-AC1 |
-| 8 | Regression | API — get products, add to cart, validate cart, create invoice (COD payload) | API-AC2 |
+| 7 | Smoke | API — register, login, bearer token, create cart | API-AC1 |
+| 8 | Regression | API — E2E API lifecycle: get products, add to cart, validate cart, create invoice (COD payload; `cart_id` from case 7 or test data) | API-AC2 |
 
 If you must drop cases to stay ≤8, drop lower-risk duplicates first; **do not** drop **Confirm twice** invoice coverage or **API token + cart** core.
 

@@ -175,11 +175,11 @@ Your submission must include:
 Your Core submission should show that:
 
 1. You can derive **clear test objectives and scope** from the application or tickets 
-2. You have a **traceable mapping** from requirements / state machine to test scenarios and cases.
-3. You cover **valid and invalid status transitions** with tests (manual + API automation for the state machine).
-4. UI tests verify key user flows: create, list, view, update, comment, search, error handling.
-5. API tests verify key user flows: create, list, view, update, comment, search, error handling
-6. Test data is well-planned (e.g., different priorities, statuses, edge case titles/descriptions).
+2. You have a **traceable mapping** from requirements / acceptance criteria (UI-AC1, UI-AC2, API-AC1, API-AC2) to test scenarios and cases.
+3. You cover **valid and invalid paths** for Toolshop ecommerce flows (registration, login, cart, checkout, invoice) with manual tests and API automation where applicable.
+4. UI tests verify key flows: registration and login, product browse/search, cart and quantity updates, Cash on Delivery checkout (including **Confirm pressed twice**), invoice under **My Invoices**, and error handling (e.g., invalid login).
+5. API tests verify key flows: register and login (bearer token), cart creation, product retrieval, add to cart, cart validation, invoice generation, and API error handling.
+6. Test data is well-planned (e.g., unique users, billing payloads, edge quantities, negative credentials).
 7. At least one **automation suite can be executed from the README** without manual intervention beyond environment setup.
 8. Prompt history shows **thoughtful AI use**, not copy-paste of unreviewed outputs. 
 
@@ -199,6 +199,7 @@ qa-ai-practical-assessment/
 └── ai-prompts/
     ├── requirements-and-planning.md
     ├── test-design.md
+    ├── test-data.md
     ├── automation-and-debugging.md
     └── documentation-and-summary.md
 ├──.Cursor/Tool

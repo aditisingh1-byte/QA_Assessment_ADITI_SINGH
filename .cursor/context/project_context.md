@@ -383,7 +383,7 @@ The project must include:
 - API Automation Suite
 - Test Data Strategy
 - Execution Reports
-- README.md
+- readme.md
 - AI Prompt History
 - Folder Structure
 
@@ -399,9 +399,9 @@ qa-ai-practical-assessment/
 
 ├── project-info.md
 
-├── README.md
+├── readme.md
 
-├── ai-prompts/
+├── ai-prompts/          ← submission AI prompt history (five files per Assessment.md)
 
 ├── .cursor/
 
@@ -409,7 +409,9 @@ qa-ai-practical-assessment/
 
 │ ├── skills/
 
-│ └── prompts/
+│ ├── ai-prompts/        ← Cursor execution prompts (e.g. MANUAL_PROMPT.md; not submission history)
+
+│ └── context/
 
 ---
 

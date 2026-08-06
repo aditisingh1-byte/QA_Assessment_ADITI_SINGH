@@ -134,7 +134,7 @@ Do not paste project information repeatedly.
 
 Reference
 
-project-context.md
+`.cursor/context/project_context.md`
 
 instead.
 

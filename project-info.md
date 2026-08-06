@@ -142,10 +142,10 @@ This assessment targets the Toolshop ecommerce application: user authentication 
 
 | Acceptance criteria | Manual (`FunctionalTestCase.csv`) | UI automation | API automation |
 |---------------------|-----------------------------------|---------------|----------------|
-| UI-AC1 | Step 3 | Step 7 | — |
-| UI-AC2 | Step 3 | Step 7 | — |
-| API-AC1 | Step 3 | — | Step 6 |
-| API-AC2 | Step 3 | — | Step 6 |
+| UI-AC1 | Step 3 (TC-M-002, TC-M-004, TC-M-006) | Step 7 | — |
+| UI-AC2 | Step 3 (TC-M-001, TC-M-003, TC-M-005) | Step 7 | — |
+| API-AC1 | Step 3 (TC-M-007) | — | Step 6 |
+| API-AC2 | Step 3 (TC-M-008) | — | Step 6 |
 
 ---
 
@@ -159,7 +159,7 @@ This assessment targets the Toolshop ecommerce application: user authentication 
 
 3. **Test planning and strategy (UI vs API, smoke vs regression)** — *(Step 3+)*
 
-4. **Manual test case design** — *(Step 3)*
+4. **Manual test case design** — `FunctionalTestCase.csv` (8 cases, TC-M-001–TC-M-008); iterative prompts in `ai-prompts/test-design.md` (Step 3).
 
 5. **Automation design (Playwright / PrismStructure)** — *(Steps 5–7)*
 

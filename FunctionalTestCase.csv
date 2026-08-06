@@ -1,0 +1,31 @@
+Test Case ID,Module,Feature,Requirement,Scenario,Title,Priority,Severity,Category,Smoke/Regression,Preconditions,Test Data,Steps,Expected Result,Automation Candidate,Status,Remarks
+TC-M-001,Home,Product Catalog,UI-AC2,Smoke catalog visibility,Verify home page displays product catalog,High,Critical,Positive,Smoke,Browser available; Toolshop UI reachable,None,"1. Navigate to https://practicesoftwaretesting.com/
+2. Observe the main product listing area",The product catalog is displayed with at least one product visible on the home page.,Yes,Not Executed,@Smoke; sanity path for browse
+TC-M-002,Authentication,Login,UI-AC1,Smoke valid login,Verify registered user can log in with valid credentials,High,Critical,Positive,Smoke,User account exists on Toolshop (register in pre-step or use prior registered user),Email: unique.registered.{timestamp}@example.com; Password: Pass$w0rd1,"1. Open https://practicesoftwaretesting.com/auth/login
+2. Enter valid email and password
+3. Click Login",User is logged in and is redirected to an authenticated area (e.g. account or home with user session active).,Yes,Not Executed,@Smoke; UI-AC1 login only
+TC-M-003,Shopping Cart,Add to Cart,UI-AC2,Smoke add single product,Verify user can add a product to the cart from the catalog,High,Major,Positive,Smoke,User is logged in,Product: any in-stock item from catalog,"1. Log in to Toolshop
+2. From home/catalog click a product or Add to cart for an available item
+3. Open the cart",Cart shows the selected product with quantity at least 1.,Yes,Not Executed,@Smoke
+TC-M-004,Authentication,Registration and Profile,UI-AC1,Regression register and profile,Verify new user registration login and profile details,High,Major,Business Workflow,Regression,Browser available; email not previously registered,First name: Test; Last name: User{timestamp}; Email: manual.user.{timestamp}@example.com; Password: Pass$w0rd1; Address fields per UI register form including house number and DOB as required,"1. Navigate to registration
+2. Complete all mandatory registration fields with test data
+3. Submit registration
+4. Log in with the same credentials
+5. Open profile or account details",Profile displays the registered user information matching the data entered at registration (e.g. name and email).,Yes,Not Executed,@Regression; UI-AC1 full path
+TC-M-005,Checkout,End-to-End Purchase,UI-AC2,Regression COD checkout and invoice,Verify COD checkout with Confirm twice and invoice in My Invoices,High,Critical,End-to-End,Regression,User is logged in; cart contains at least two products or one product with quantity updated to 2,Billing address per checkout form (valid country and postal); Payment: Cash on Delivery,"1. Log in and add multiple products or update cart quantity to 2
+2. Proceed to checkout
+3. Enter billing details and select Cash on Delivery
+4. Press Confirm once and wait for payment success indication
+5. Press Confirm a second time as required for invoice generation
+6. Navigate to My Invoices",A new invoice is listed under My Invoices reflecting the completed order.,Yes,Not Executed,@Regression; Assessment Confirm twice rule
+TC-M-006,Authentication,Login,UI-AC1,Regression invalid login,Verify login fails with invalid credentials,Medium,Major,Negative,Regression,Login page accessible,Email: notregistered.{timestamp}@example.com; Password: WrongPass1!,"1. Open login page
+2. Enter invalid email and/or password
+3. Click Login",Login is not successful and the user remains unauthenticated with an appropriate error message displayed.,Yes,Not Executed,@Regression; negative UI-AC1
+TC-M-007,API,Authentication and Cart,API-AC1,Smoke API register login and cart,Verify API register login bearer token and cart creation,High,Critical,Positive,Smoke,API base https://api.practicesoftwaretesting.com is available,Email: api.user.{timestamp}@example.com; Password: Pass$w0rd1; Registration payload per API docs,"1. POST register with valid unique user payload
+2. POST login with same credentials
+3. Store access_token from login response
+4. POST create cart with Authorization Bearer token",Login returns a valid access token and cart creation returns HTTP success with a cart identifier.,Yes,Not Executed,@Smoke; API-AC1; use API client or REST tool
+TC-M-008,API,Cart and Invoice,API-AC2,Regression API cart to invoice,Verify products add cart validation and COD invoice generation,High,Critical,Business Workflow,Regression,Valid bearer token and cart_id from create cart; at least one product_id from GET products,Invoice body per Assessment: billing_street Zoey Shore; billing_city Hesselbury; billing_state Florida; billing_country TG; billing_postal_code 1234AA; payment_method cash-on-delivery; cart_id dynamic; payment_details {},"1. GET products with bearer token and note a product_id
+2. POST add product to cart using cart_id
+3. GET cart by cart_id and verify line items
+4. POST invoice with assessment-aligned billing and cart_id",Cart GET reflects added product(s) and invoice POST returns success with invoice details (e.g. invoice number).,Yes,Not Executed,@Regression; API-AC2; dynamic cart_id not hardcoded

@@ -64,16 +64,26 @@
   Added `PrismStructure/reports/execution-evidence/EXECUTION_SUMMARY.md` with commands and pass status; expanded `project-info.md` Setup Summary item 8.
 
 - **Edits You Made:**  
-  *(none yet — Step 9 will add root `readme.md` run instructions.)*
+  Deferred full README until Step 9 after evidence was committed.
 
 - **Reason for Edits:**  
   Assessment requires execution reports with all automated cases Passed.
 
 ---
 
-## Planned (Step 9)
+## Entry 5 — README and submission packaging (Step 9)
 
-- `readme.md` — install, Smoke/Regression commands, report paths
+- **Prompt:**  
+  Complete assessment `readme.md`: framework, setup, smoke/regression/API/UI commands, report paths, manual CSV guidance, `ai-prompts/` expectations; finalize `project-info.md` Setup Summary items 6–7 and 10.
+
+- **AI Response Summary:**  
+  Expanded root `README.md` with prerequisites, `PrismStructure` install/run table, execution-evidence paths, traceability snapshot, and repository URL. Updated `project-info.md` to reflect implemented automation and test data (removed “planned” wording).
+
+- **Edits You Made:**  
+  Left **Assessment Start Date / Submission Date** in `project-info.md` blank for author fill-in before final submission.
+
+- **Reason for Edits:**  
+  Dates are personal submission metadata; all technical run instructions belong in README for evaluators.
 
 ---
 

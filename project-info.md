@@ -22,9 +22,9 @@ This assessment targets the Toolshop ecommerce application: user authentication 
 | Category | Tool |
 |----------|------|
 | AI | Cursor |
-| UI / API automation (planned) | Playwright (Prism-style structure under `PrismStructure/`) |
-| Browser | Google Chrome (latest) |
-| Manual suite (planned) | `FunctionalTestCase.csv` |
+| UI / API automation | Playwright (Prism-style hybrid under `PrismStructure/`) |
+| Browser | Google Chrome (latest), via Playwright `channel: 'chrome'` |
+| Manual suite | `FunctionalTestCase.csv` |
 | Version control | Git (iterative commits to public repository) |
 
 ---
@@ -151,8 +151,6 @@ This assessment targets the Toolshop ecommerce application: user authentication 
 
 ## Setup Summary (AI workflow — Part A)
 
-*Setup Summary items 5, 8, and 10 remain as stated above; items 3, 6, and 7 expanded in Step 4.*
-
 1. **Project and SUT context** — `.cursor/context/project_context.md` holds URLs, ACs, Confirm-twice rule, naming conventions, and assessment folder layout; referenced in Cursor via `@project_context.md` and rules/skills under `.cursor/`.
 
 2. **Requirement analysis** — Iterative prompts against `Assessment.md` and context file; output captured in this **Requirement and Risk Analysis** section and in `ai-prompts/requirements-and-planning.md` (Entry 3).
@@ -163,15 +161,15 @@ This assessment targets the Toolshop ecommerce application: user authentication 
 
 5. **Automation design (Playwright / PrismStructure)** — `PrismStructure/` hybrid layout (Step 5–7): POM pages (`HomePage`, `LoginPage`, `RegisterPage`, `ProductPage`, `CartPage`, `CheckoutPage`, `AccountPage`), UI specs `tests/ui/auth-checkout.spec.js` (8 cases TC-UI-001–008), API specs `tests/api/auth-cart-invoice.spec.js` (8 cases). System Chrome via `channel: 'chrome'`. Demo credentials in `.env.example` only.
 
-6. **Validate and refine AI-generated cases and scripts** — After each AI output: map to UI-AC1/AC2 and API-AC1/AC2; apply `.cursor/skills/self-review.md` and `manual-rules.md` Rule 17 (manual Step 3c **pass**). For automation (later): run suites locally, compare failures to Assessment rules (Confirm twice, dynamic `cart_id`), adjust locators/data—not blind acceptance. Prompt changes recorded in `ai-prompts/test-design.md` / `automation-and-debugging.md` with validation notes.
+6. **Validate and refine AI-generated cases and scripts** — After each AI output: map to UI-AC1/AC2 and API-AC1/AC2; apply `.cursor/skills/self-review.md` and `manual-rules.md` Rule 17 (manual Step 3c **pass**). For automation: ran `npm test` / targeted `test:api` and `test:ui` after Steps 6–7; fixed register payload length, hybrid TC-UI-005, and locator/wizard issues per Assessment rules (Confirm twice in manual/hybrid scope, dynamic `cart_id` in API). Prompt and validation notes in `ai-prompts/test-design.md` and `automation-and-debugging.md`.
 
-7. **Test data generation and API payloads** — See **Test Data Strategy** below. Manual suite uses `{timestamp}` placeholders in CSV; automation will use builders/env under `PrismStructure/` (Step 5+). Positive API invoice uses Assessment sample fields (`billing_country` TG, `billing_postal_code` 1234AA, `payment_method` cash-on-delivery). AI used iteratively to draft strategy; human review against `Assessment.md` and `FunctionalTestCase.csv`.
+7. **Test data generation and API payloads** — See **Test Data Strategy** below. Manual suite uses `{timestamp}` placeholders in CSV; automation uses `PrismStructure/src/testdata/data.builders.js`, `checkout.data.json`, and `.env` from `.env.example`. Positive API invoice uses Assessment sample fields (`billing_country` TG, `billing_postal_code` 1234AA, `payment_method` cash-on-delivery). Strategy drafted with AI in Step 4; implemented and exercised in Steps 5–8.
 
 8. **Debugging failing tests** — API register 422 (`last_name` length) fixed in `data.builders.js` (Step 6). UI checkout wizard flakiness led to hybrid TC-UI-005 (API invoice + My Invoices); logged in `ai-prompts/automation-and-debugging.md`. **Execution evidence (Step 8):** full suite `npx playwright test` — 17/17 passed; committed under `PrismStructure/reports/execution-evidence/` (`EXECUTION_SUMMARY.md`, `test-results.json`, `full-suite-run.log`, HTML snapshot).
 
 9. **Information not shared with AI** — Production credentials, internal URLs, API keys, or customer PII beyond public demo app needs.
 
-10. **Reuse in a real project** — Reuse context + rules + skills + phased `ai-prompts/` history; one task per prompt; commit per lifecycle phase.
+10. **Reuse in a real project** — Reuse `.cursor/context` + rules + skills + phased `ai-prompts/` history; one focused prompt per task; iterative git commits (Steps 1–9); runbooks in root `README.md` (`readme.md` per assessment naming on case-sensitive systems); committed execution evidence under `PrismStructure/reports/execution-evidence/` for auditors.
 
 ---
 
@@ -192,8 +190,8 @@ This assessment targets the Toolshop ecommerce application: user authentication 
 | Tier | Source | Notes |
 |------|--------|--------|
 | Manual | `FunctionalTestCase.csv` **Test Data** column | Placeholders `{timestamp}`; executor substitutes at run time |
-| UI automation (planned) | `PrismStructure/` builders + JSON fixtures (Step 5+) | Register/checkout fields per live UI mandatory fields |
-| API automation (planned) | Payload builders + Assessment invoice body | `cart_id` injected after `POST /carts`; token from `POST /users/login` |
+| UI automation | `PrismStructure/src/testdata/data.builders.js`, `checkout.data.json` | Unique register users per run; demo user via `.env` for login smoke |
+| API automation | `data.builders.js` + Assessment invoice body | `cart_id` from `POST /carts`; bearer token from `POST /users/login` |
 
 ### Assessment invoice payload (positive API baseline)
 
@@ -223,7 +221,7 @@ Used for API-AC2 / TC-M-008 and future `TC-API-*` invoice tests:
 
 1. Prompt for registration and invoice field lists from `Assessment.md` only (Step 4a).  
 2. Prompt for uniqueness and “no hardcoded ID” rules (Step 4b).  
-3. Log prompts in `ai-prompts/test-data.md`; lock strategy in this section before implementing `PrismStructure` testdata (Step 5+).
+3. Log prompts in `ai-prompts/test-data.md`; strategy locked in this section and implemented under `PrismStructure/src/testdata/` (Steps 5–8).
 
 ### Assumptions
 

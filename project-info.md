@@ -144,8 +144,8 @@ This assessment targets the Toolshop ecommerce application: user authentication 
 |---------------------|-----------------------------------|---------------|----------------|
 | UI-AC1 | Step 3 (TC-M-002, TC-M-004, TC-M-006) | Step 7 | — |
 | UI-AC2 | Step 3 (TC-M-001, TC-M-003, TC-M-005) | Step 7 | — |
-| API-AC1 | Step 3 (TC-M-007) | — | Step 6 |
-| API-AC2 | Step 3 (TC-M-008) | — | Step 6 |
+| API-AC1 | Step 3 (TC-M-007) | — | Step 6 (TC-API-001–003) |
+| API-AC2 | Step 3 (TC-M-008) | — | Step 6 (TC-API-004–008) |
 
 ---
 

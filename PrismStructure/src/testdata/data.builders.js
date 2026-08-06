@@ -1,15 +1,15 @@
 const checkoutData = require('./checkout.data.json');
 
 function uniqueStamp() {
-  return `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+  return `${Date.now().toString(36)}${Math.random().toString(36).slice(2, 6)}`;
 }
 
 function buildUserRegistrationPayload(overrides = {}) {
   const stamp = uniqueStamp();
   return {
     first_name: 'Auto',
-    last_name: `User${stamp}`,
-    email: `auto.user.${stamp}@example.com`,
+    last_name: `U${stamp}`.slice(0, 20),
+    email: `auto.${stamp}@example.com`,
     password: checkoutData.defaultPassword,
     dob: '1990-06-15',
     phone: '5550100999',

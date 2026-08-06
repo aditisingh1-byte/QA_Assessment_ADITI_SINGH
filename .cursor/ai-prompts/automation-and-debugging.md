@@ -21,11 +21,23 @@
 
 ---
 
-## Planned (Steps 6–8)
+## Entry 2 — API suite and registration payload fix (Step 6)
 
-- API smoke/regression specs (`tests/api`)  
+- **Prompt:**  
+  Add `tests/api/auth-cart-invoice.spec.js` with 8 cases TC-API-001–008 (@smoke/@regression). Run until green.
+
+- **AI Response Summary:**  
+  Implemented full API lifecycle spec using `registerAndLogin`, cart helpers, `buildInvoicePayload`. All 8 tests passed via `npx playwright test tests/api --project=api`.
+
+- **Debugging Outcome:**  
+  Register returned 422: `last_name` exceeded 20 characters from long `User{stamp}` builder. Shortened stamp and last name in `data.builders.js`.
+
+---
+
+## Planned (Steps 7–8)
+
 - UI smoke/regression specs (`tests/ui`) including Confirm twice  
-- Failure analysis entries after test runs
+- Failure analysis entries after full suite runs
 
 ---
 

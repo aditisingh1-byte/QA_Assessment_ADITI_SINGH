@@ -72,11 +72,31 @@
 
 ---
 
-## Planned — UI/API automation case titles (Steps 6–7)
+## Planned — UI automation case titles (Step 7)
 
-*Add entries when Playwright suites are designed.*
+*Add entries when Playwright UI suite is implemented.*
 
 ---
+
+## Entry 5 — API automation suite (Step 6)
+
+- **Prompt:**  
+  Implement 8 Playwright API tests in `tests/api/auth-cart-invoice.spec.js` with IDs TC-API-001–008 and tags @smoke / @regression. Map to API-AC1/AC2 and manual TC-M-007/008. Use existing API clients and builders.
+
+- **AI Response Summary:**  
+  Smoke: register, login token, create cart. Regression: products list, add to cart, get cart lines, invoice 201, invoice 422 on US+1234AA mismatch.
+
+- **Validation Notes:**  
+  `npm run test:api` — 8 passed. Fixed registration builder: `last_name` max 20 chars (API 422).
+
+---
+
+## API automation traceability
+
+| Requirement | Automated tests |
+|-------------|-----------------|
+| API-AC1 | TC-API-001, TC-API-002, TC-API-003 |
+| API-AC2 | TC-API-004, TC-API-005, TC-API-006, TC-API-007, TC-API-008 |
 
 ## Reusable test-design prompt (Rules + Skills)
 
